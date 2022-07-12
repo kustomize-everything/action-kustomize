@@ -5,10 +5,6 @@ inputs:
   run:
     description: Script to run
     required: true
-  output-filename:
-    description: Output filename with k8s resources
-    required: false
-    default: deployment.yaml
   version:
     description: Version of Kustomize to use
     required: false
