@@ -1,0 +1,38 @@
+---
+name: Kustomize
+description: Thin wrapper for kustomize
+inputs:
+  run:
+    description: Script to run
+    required: true
+  output-filename:
+    description: Output filename with k8s resources
+    required: false
+    default: deployment.yaml
+  version:
+    description: Version of Kustomize to use
+    required: false
+    default: 4.5.3
+  sha256-checksum:
+    description: Checksum of customize version
+    required: false
+    default: e4dc2f795235b03a2e6b12c3863c44abe81338c5c0054b29baf27dcc734ae693
+runs:
+  using: composite
+  steps:
+    - run: |
+        mkdir -p /tmp/bin
+        pushd /tmp/bin
+        KUSTOMIZE_FILENAME="kustomize_v${{ inputs.version }}_linux_amd64.tar.gz"
+        curl -o ${KUSTOMIZE_FILENAME} -L https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv${{ inputs.version }}/${KUSTOMIZE_FILENAME}
+        sha256sum ${KUSTOMIZE_FILENAME}
+        echo "${{ inputs.sha256-checksum }}  ${KUSTOMIZE_FILENAME}" > kustomize.SHA256
+        sha256sum -c kustomize.SHA256
+        tar xzf ${KUSTOMIZE_FILENAME}
+        chmod u+x kustomize
+        popd
+        echo "/tmp/bin/" >> $GITHUB_PATH
+        kustomize version
+      shell: bash
+    - run: ${{ inputs.run }}
+      shell: bash
