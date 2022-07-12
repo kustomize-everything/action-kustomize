@@ -1,10 +1,7 @@
 ---
 name: Kustomize
-description: Thin wrapper for kustomize
+description: Thin wrapper for installing kustomize
 inputs:
-  run:
-    description: Script to run
-    required: true
   version:
     description: Version of Kustomize to use
     required: false
@@ -29,6 +26,4 @@ runs:
         popd
         echo "/tmp/bin/" >> $GITHUB_PATH
         kustomize version
-      shell: bash
-    - run: ${{ inputs.run }}
       shell: bash
