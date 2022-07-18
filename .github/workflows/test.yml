@@ -17,6 +17,3 @@ jobs:
 
       - name: Kustomize Setup
         uses: ./
-        with:
-          version: ${{ inputs.version }}
-          sha256-checksum: ${{ inputs.sha256-checksum }}
