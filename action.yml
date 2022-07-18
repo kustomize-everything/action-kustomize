@@ -28,5 +28,5 @@ runs:
       shell: bash
       env:
         KUSTOMIZE_FILENAME: kustomize_v${{ inputs.version }}_linux_amd64.tar.gz
-        SHA256_CHECKSUM: ${{ sha256-checksum }}
+        SHA256_CHECKSUM: ${{ inputs.sha256-checksum }}
         VERSION: ${{ inputs.version }}
