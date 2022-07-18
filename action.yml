@@ -16,14 +16,17 @@ runs:
     - run: |
         mkdir -p /tmp/bin
         pushd /tmp/bin
-        KUSTOMIZE_FILENAME="kustomize_v${{ inputs.version }}_linux_amd64.tar.gz"
-        curl -o ${KUSTOMIZE_FILENAME} -L https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv${{ inputs.version }}/${KUSTOMIZE_FILENAME}
-        sha256sum ${KUSTOMIZE_FILENAME}
-        echo "${{ inputs.sha256-checksum }}  ${KUSTOMIZE_FILENAME}" > kustomize.SHA256
+        curl -o "${KUSTOMIZE_FILENAME}" -L "https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv${VERSION}/${KUSTOMIZE_FILENAME}"
+        sha256sum "${KUSTOMIZE_FILENAME}"
+        echo "${SHA256_CHECKSUM}  ${KUSTOMIZE_FILENAME}" > kustomize.SHA256
         sha256sum -c kustomize.SHA256
-        tar xzf ${KUSTOMIZE_FILENAME}
+        tar xzf "${KUSTOMIZE_FILENAME}"
         chmod u+x kustomize
         popd
         echo "/tmp/bin/" >> $GITHUB_PATH
         kustomize version
       shell: bash
+      env:
+        KUSTOMIZE_FILENAME: kustomize_v${{ inputs.version }}_linux_amd64.tar.gz
+        SHA256_CHECKSUM: ${{ sha256-checksum }}
+        VERSION: ${{ inputs.version }}
