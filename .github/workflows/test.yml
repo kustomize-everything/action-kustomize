@@ -1,0 +1,22 @@
+name: Testing
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test-setup:
+    name: Test Setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+
+      - name: Kustomize Setup
+        uses: ./
+        with:
+          version: ${{ inputs.version }}
+          sha256-checksum: ${{ inputs.sha256-checksum }}
