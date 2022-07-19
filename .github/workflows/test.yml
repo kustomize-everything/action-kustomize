@@ -17,3 +17,8 @@ jobs:
 
       - name: Kustomize Setup
         uses: ./
+        
+      - name: Kustomize Init and Build
+        run: |
+          kustomize init
+          kustomize build .
