@@ -20,7 +20,7 @@ runs:
         path: /tmp/bin/kustomize_v${{ inputs.version }}_linux_amd64.tar.gz
         key: kustomize-${{ inputs.version }}-${{ inputs.sha256-checksum }}
     - name: Download and Checksum Kustomize
-      run: download-and-verify.sh
+      run: bash download-and-verify.sh
       shell: bash
       env:
         KUSTOMIZE_FILENAME: /tmp/bin/kustomize_v${{ inputs.version }}_linux_amd64.tar.gz
