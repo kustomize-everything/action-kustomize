@@ -3,6 +3,8 @@
 mkdir -p /tmp/bin
 pushd /tmp/bin || exit 1
 
+set -e
+
 if [ -f "${KUSTOMIZE_FILENAME}" ]; then
     echo "Kustomize already downloaded"
 else
