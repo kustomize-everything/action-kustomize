@@ -5,11 +5,11 @@ inputs:
   version:
     description: Version of Kustomize to use
     required: false
-    default: 4.5.5
+    default: 5.0.0
   sha256-checksum:
     description: Checksum of customize version
     required: false
-    default: bba81aa61dba057db1d5abeddf1e522b568b2d906ab67a5c80935e97302c8773
+    default: 2e8c28a80ce213528251f489db8d2dcbea7c63b986c8f7595a39fc76ff871cd7
 runs:
   using: composite
   steps:
@@ -29,7 +29,6 @@ runs:
           curl -o "${KUSTOMIZE_FILENAME}" -L "https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv${VERSION}/${KUSTOMIZE_FILENAME}"
         fi
         sha256sum "${KUSTOMIZE_FILENAME}"
-
         echo "${SHA256_CHECKSUM}  ${KUSTOMIZE_FILENAME}" > kustomize.SHA256
         sha256sum -c kustomize.SHA256
         tar xzf "${KUSTOMIZE_FILENAME}"
