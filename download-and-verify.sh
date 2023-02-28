@@ -20,5 +20,5 @@ chmod u+x kustomize
 popd
 
 echo "${BIN_DIR}" >> $GITHUB_PATH
-"${BINDIR}/kustomize" version
+"${BIN_DIR}/kustomize" version
 kustomize version
