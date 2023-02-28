@@ -1,11 +1,13 @@
 #!/bin/bash
 
-mkdir -p /tmp/bin
-pushd /tmp/bin || exit 1
+mkdir -p "${BIN_DIR}"
+pushd "${BIN_DIR}" || exit 1
 
 set -e
 
-if [ -f "${KUSTOMIZE_FILENAME}" ]; then
+KUSTOMIZE_DOWNLOAD_PATH="${BIN_DIR}/${KUSTOMIZE_FILENAME}"
+
+if [ -f "${KUSTOMIZE_DOWNLOAD_PATH}" ]; then
     echo "Kustomize already downloaded"
 else
     curl -o "${KUSTOMIZE_FILENAME}" -L "https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv${VERSION}/${KUSTOMIZE_FILENAME}"
@@ -18,6 +20,6 @@ tar xzf "${KUSTOMIZE_FILENAME}"
 chmod u+x kustomize
 popd
 
-echo "/tmp/bin" >> $GITHUB_PATH
-/tmp/bin/kustomize version
+echo "${BIN_DIR}" >> $GITHUB_PATH
+"${BINDIR}/kustomize" version
 kustomize version
