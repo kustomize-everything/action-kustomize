@@ -13,16 +13,27 @@ inputs:
 runs:
   using: composite
   steps:
+    - name: Cache
+      id: cache
+      uses: actions/cache@v3
+      with:
+        path: /tmp/bin/kustomize
+        key: kustomize-${{ inputs.version }}-${{ inputs.sha256-checksum }}
     - run: |
-        mkdir -p /tmp/bin
-        pushd /tmp/bin
-        curl -o "${KUSTOMIZE_FILENAME}" -L "https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv${VERSION}/${KUSTOMIZE_FILENAME}"
-        sha256sum "${KUSTOMIZE_FILENAME}"
-        echo "${SHA256_CHECKSUM}  ${KUSTOMIZE_FILENAME}" > kustomize.SHA256
-        sha256sum -c kustomize.SHA256
-        tar xzf "${KUSTOMIZE_FILENAME}"
-        chmod u+x kustomize
-        popd
+        if [ -f /tmp/bin/kustomize ]; then
+          echo "Kustomize already installed"
+        else
+          mkdir -p /tmp/bin
+          pushd /tmp/bin
+          curl -o "${KUSTOMIZE_FILENAME}" -L "https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv${VERSION}/${KUSTOMIZE_FILENAME}"
+          sha256sum "${KUSTOMIZE_FILENAME}"
+          echo "${SHA256_CHECKSUM}  ${KUSTOMIZE_FILENAME}" > kustomize.SHA256
+          sha256sum -c kustomize.SHA256
+          tar xzf "${KUSTOMIZE_FILENAME}"
+          chmod u+x kustomize
+          popd
+        fi
+
         echo "/tmp/bin/" >> $GITHUB_PATH
         kustomize version
       shell: bash

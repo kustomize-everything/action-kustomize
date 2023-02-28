@@ -15,10 +15,11 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v3
 
-      - name: Kustomize Setup
+      - name: Run Action with no arguments
         uses: ./
-        
+
       - name: Kustomize Init and Build
         run: |
+          kustomize version
           kustomize init
           kustomize build .
