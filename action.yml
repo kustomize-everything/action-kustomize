@@ -25,6 +25,7 @@ runs:
         key: kustomize-${{ inputs.version }}-${{ inputs.sha256-checksum }}
     - name: Download and Checksum Kustomize
       working-directory: action-kustomize
+      shell: bash
       run: |-
         pwd
         ls
