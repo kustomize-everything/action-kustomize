@@ -13,17 +13,15 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-    # - name: Cache
-    #   id: cache
-    #   uses: actions/cache@v3
-    #   with:
-    #     path: /tmp/bin/kustomize_v${{ inputs.version }}_linux_amd64.tar.gz
-    #     key: kustomize-${{ inputs.version }}-${{ inputs.sha256-checksum }}
+    - name: Cache
+      id: cache
+      uses: actions/cache@v3
+      with:
+        path: /tmp/bin/kustomize_v${{ inputs.version }}_linux_amd64.tar.gz
+        key: kustomize-${{ inputs.version }}-${{ inputs.sha256-checksum }}
     - name: Download and Checksum Kustomize
       shell: bash
-      run: bash download-and-checksum.sh
+      run: bash ${{ github.action_path }}/download-and-checksum.sh
       env:
         BIN_DIR: /tmp/bin
         KUSTOMIZE_FILENAME: kustomize_v${{ inputs.version }}_linux_amd64.tar.gz
