@@ -20,7 +20,6 @@ runs:
     #     path: /tmp/bin/kustomize_v${{ inputs.version }}_linux_amd64.tar.gz
     #     key: kustomize-${{ inputs.version }}-${{ inputs.sha256-checksum }}
     - name: Download and Checksum Kustomize
-      working-directory: action-kustomize
       shell: bash
       run: |-
         mkdir -p "${BIN_DIR}"
