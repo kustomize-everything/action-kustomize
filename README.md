@@ -1,6 +1,6 @@
 # Kustomize GitHub Action
 
-[![CodeScene general](https://codescene.io/images/analyzed-by-codescene-badge.svg)](https://codescene.io/projects/44667)
+[![CodeScene general](https://codescene.io/images/analyzed-by-codescene-badge.svg)](https://codescene.io/projects/44667) [![CodeScene Code Health](https://codescene.io/projects/44667/status-badges/code-health)](https://codescene.io/projects/44667)
 
 This action is a thin wrapper that automates the process of installing Kustomize. Kustomize is a standalone tool to customize Kubernetes objects through a kustomization file.
 
